@@ -49,17 +49,15 @@ print(f"good: {good}", file=sys.stderr, flush=True)
 target_center = good[0] + ((good[1]-good[0])//2)
 
 def print_ctrl(distance, distanceT, dp, y, hs, vs, landYG):
-    print(f"target center: {target_center}", file=sys.stderr, flush=True)
-    print(f"distance: {distance}", file=sys.stderr, flush=True)
-    print(f"distance du centre: {distanceT}", file=sys.stderr, flush=True)
-    print(f"dp: {dp}", file=sys.stderr, flush=True)
-    print(f"dp - distance: {dp - distance}", file=sys.stderr, flush=True)
-    print(f"dp+60: {dp+60}", file=sys.stderr, flush=True)
-    print(f"Hauteur: {y - landYG}", file=sys.stderr, flush=True)
-    print(f"Y: {y}", file=sys.stderr, flush=True)
-    # print(f"landYG: {landYG}", file=sys.stderr, flush=True)
-    # print(f"VS: {vs}", file=sys.stderr, flush=True)
-    # print(f"max_fuel: {max_fuel}", file=sys.stderr, flush=True)
+    print(f"target center (ZA center): {target_center}", file=sys.stderr, flush=True)
+    print(f"distance ZA: {distance}", file=sys.stderr, flush=True)
+    print(f"distance du centre ZA: {distanceT}", file=sys.stderr, flush=True)
+    print(f"Altitude: {y - landYG}", file=sys.stderr, flush=True)
+    print(f"ma position -> Y: {y} X: {x}", file=sys.stderr, flush=True)
+    print(f"altitude ZA: {landYG}", file=sys.stderr, flush=True)
+    print(f"VS: {vs}", file=sys.stderr, flush=True)
+    print(f"HS: {hs}", file=sys.stderr, flush=True)
+    print(f"max fuel: {max_fuel}", file=sys.stderr, flush=True)
     
     return 0
 
@@ -83,7 +81,7 @@ def simulate_trajectory(x, y, hs, vs, f, angle, thrust, landYG, peaks, max_steps
     """
     Simule la trajectoire du module et renvoie la vitesse et position finale.
     """
-    g = 3.711  # Gravité martienne
+    g = 3.711
     trajectory = []
     
     for step in range(max_steps):
@@ -96,12 +94,6 @@ def simulate_trajectory(x, y, hs, vs, f, angle, thrust, landYG, peaks, max_steps
         vs += ay
 
         # Mise à jour des positions
-        # x += hs
-        # y += vs
-
-        # version avec accélération
-        # x = x + hs - ax * 0.5
-        # y = y + vs + ay * 0.5 
         x = x + hs + 0.5 * ax
         y = y + vs + 0.5 * ay
 
@@ -224,7 +216,7 @@ while True:
     
     print(f"------------------------------------", file=sys.stderr, flush=True)
     print(f"touches_peak: =>{touches_peak}", file=sys.stderr, flush=True)
-    print(f"Prévision de position finale: x={pred_x}, y={pred_y}", file=sys.stderr, flush=True)
+    print(f"Prévision de position finale: x={int(pred_x)}, y={int(pred_y)}", file=sys.stderr, flush=True)
     print(f"Vitesse horizontale finale: hs={pred_hs}", file=sys.stderr, flush=True)
     print(f"Vitesse verticale finale: vs={pred_vs}", file=sys.stderr, flush=True)
     print(f"predicted fuel: vs={pf}", file=sys.stderr, flush=True)
